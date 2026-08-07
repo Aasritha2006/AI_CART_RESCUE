@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart Rescue | Smart Cart Recovery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">🛒 Cart Rescue</div>
+  <nav><a href="#dashboard">Dashboard</a><a href="#cart">Cart</a><a href="#analytics">Analytics</a><a href="#history">History</a></nav>
+  <div class="nav-actions"><button id="themeBtn" class="icon-btn">🌙</button><button class="profile-btn">👤 Admin</button></div>
+</header>
+
+<main>
+<section class="hero" id="dashboard">
+  <div class="hero-content">
+    <span class="badge">🤖 AI-POWERED CART RECOVERY</span>
+    <h1>Save abandoned carts.<br><span>Protect your margin.</span></h1>
+    <p>Cart Rescue identifies why customers abandon their carts and provides the right solution instead of blindly giving discounts.</p>
+    <button class="primary-btn" onclick="scrollToCart()">🛒 Try Cart Rescue</button>
+  </div>
+  <div class="hero-card">
+    <div class="ai-header"><span>🤖</span><div><strong>AI Rescue Engine</strong><small>Live analysis</small></div><span class="live">● LIVE</span></div>
+    <div class="analysis-box"><span class="analysis-icon">💳</span><div><small>Detected problem</small><strong id="heroProblem">Payment failure</strong></div></div>
+    <div class="arrow">↓</div>
+    <div class="solution-box"><span class="analysis-icon">🎯</span><div><small>Recommended action</small><strong id="heroSolution">Retry UPI payment</strong></div></div>
+    <div class="success-mini"><span>✓</span> Personalized rescue — no unnecessary discount</div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stat-card"><div class="stat-icon blue">🛒</div><div><span>Total carts</span><h2 id="totalCarts">1,248</h2><small>↑ 12.5% this week</small></div></div>
+  <div class="stat-card"><div class="stat-icon orange">⚠️</div><div><span>Abandoned carts</span><h2 id="abandonedCarts">524</h2><small>42% abandonment rate</small></div></div>
+  <div class="stat-card"><div class="stat-icon green">✓</div><div><span>Recovered carts</span><h2 id="recoveredCarts">317</h2><small class="positive">↑ 18.2% recovery</small></div></div>
+  <div class="stat-card"><div class="stat-icon purple">₹</div><div><span>Revenue recovered</span><h2 id="revenue">₹2.84L</h2><small class="positive">↑ 23.4% this month</small></div></div>
+</section>
+
+<section class="section">
+  <div class="section-title"><div><span class="section-label">LIVE DEMO</span><h2>Test different abandonment reasons</h2><p>Click a scenario to see how Cart Rescue responds.</p></div></div>
+  <div class="scenario-grid">
+    <button class="scenario active" onclick="simulate('payment',this)"><span>💳</span><strong>Payment Failed</strong><small>UPI / Net Banking failure</small></button>
+    <button class="scenario" onclick="simulate('shipping',this)"><span>🚚</span><strong>High Shipping Cost</strong><small>Unexpected delivery fee</small></button>
+    <button class="scenario" onclick="simulate('delivery',this)"><span>📅</span><strong>Late Delivery</strong><small>Customer needs it faster</small></button>
+    <button class="scenario" onclick="simulate('cod',this)"><span>💵</span><strong>No COD</strong><small>Cash on delivery unavailable</small></button>
+    <button class="scenario" onclick="simulate('price',this)"><span>🏷️</span><strong>Price Checking</strong><small>Comparing another app</small></button>
+    <button class="scenario" onclick="simulate('form',this)"><span>📝</span><strong>Form Friction</strong><small>Checkout is too difficult</small></button>
+  </div>
+</section>
+
+<section class="section cart-section" id="cart">
+  <div class="section-title"><div><span class="section-label">CUSTOMER CART</span><h2>Smart Cart</h2></div><span class="customer-tag">👤 Returning Customer</span></div>
+  <div class="cart-layout">
+    <div class="cart-card">
+      <div class="product"><div class="product-image">🎧</div><div class="product-info"><h3>Wireless Headphones</h3><p>Noise cancellation • Black</p><div class="quantity"><button onclick="changeQty(-1)">−</button><span id="quantity">1</span><button onclick="changeQty(1)">+</button></div></div><strong id="productPrice">₹2,499</strong></div>
+      <div class="product"><div class="product-image phone">📱</div><div class="product-info"><h3>Phone Stand</h3><p>Adjustable • Aluminium</p><div class="quantity"><button>−</button><span>1</span><button>+</button></div></div><strong>₹699</strong></div>
+      <div class="stock-alert">⚠️ Only 2 headphones left in stock</div>
+    </div>
+    <div class="summary-card"><h3>Order Summary</h3><div class="summary-row"><span>Subtotal</span><strong id="subtotal">₹3,198</strong></div><div class="summary-row"><span>Shipping</span><strong id="shipping">₹99</strong></div><div class="summary-row"><span>Discount</span><strong class="discount" id="discount">₹0</strong></div><hr><div class="total-row"><span>Total</span><strong id="total">₹3,297</strong></div><button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button><div class="secure">🔒 Secure checkout</div></div>
+  </div>
+</section>
+
+<section class="rescue-section">
+  <div class="rescue-header"><div><span class="section-label">AI RESCUE ENGINE</span><h2 id="rescueTitle">Payment failure detected</h2></div><span class="ai-status">● AI ACTIVE</span></div>
+  <div class="rescue-grid">
+    <div class="detected-card"><span class="big-icon" id="problemIcon">💳</span><h3>Detected problem</h3><h2 id="problemText">Payment failed</h2><p id="problemDescription">The customer's previous UPI transaction was unsuccessful. A discount will not solve this problem.</p><div class="confidence"><div><span>AI confidence</span><strong id="confidence">94%</strong></div><div class="progress"><div id="confidenceBar"></div></div></div></div>
+    <div class="arrow-card"><span>→</span></div>
+    <div class="solution-card"><div class="solution-top"><span class="solution-icon" id="solutionIcon">💳</span><div><small>RECOMMENDED ACTION</small><h3 id="solutionTitle">Retry payment</h3></div></div><p id="solutionDescription">Offer another UPI payment attempt instead of giving a discount.</p><button class="rescue-btn" id="rescueButton" onclick="applyRescue()">Retry UPI Payment →</button><div class="why">💡 <strong>Why this rescue?</strong> <span id="whyText">The customer wants to buy. The issue is payment, not price.</span></div></div>
+  </div>
+</section>
+
+<section class="section payment-section">
+  <div class="section-title"><div><span class="section-label">PAYMENT RECOVERY</span><h2>Choose another payment method</h2></div></div>
+  <div class="payment-grid">
+    <button class="payment-option selected" onclick="selectPayment(this)"><span>📱</span><div><strong>UPI</strong><small>Google Pay / PhonePe / Paytm</small></div><span>✓</span></button>
+    <button class="payment-option" onclick="selectPayment(this)"><span>💳</span><div><strong>Card</strong><small>Credit / Debit Card</small></div></button>
+    <button class="payment-option" onclick="selectPayment(this)"><span>🏦</span><div><strong>Net Banking</strong><small>All major banks</small></div></button>
+    <button class="payment-option" onclick="selectPayment(this)"><span>💵</span><div><strong>Cash on Delivery</strong><small>Pay when delivered</small></div></button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><div><span class="section-label">DELIVERY OPTIMIZER</span><h2>Choose your delivery</h2></div></div>
+  <div class="delivery-grid">
+    <div class="delivery-option" onclick="selectDelivery(this)"><span class="delivery-icon">📦</span><div><strong>Standard Delivery</strong><p>Arrives in 3–5 days</p></div><strong>FREE</strong></div>
+    <div class="delivery-option selected-delivery" onclick="selectDelivery(this)"><span class="delivery-icon">⚡</span><div><strong>Express Delivery</strong><p>Arrives tomorrow</p></div><strong>₹149</strong></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><div><span class="section-label">CUSTOMER INTELLIGENCE</span><h2>Customer Profile</h2></div></div>
+  <div class="profile-grid">
+    <div class="profile-card"><div class="avatar">AS</div><div><h3>Returning Customer</h3><p>Customer #CR-1024</p></div><span class="vip">HIGH VALUE</span></div>
+    <div class="profile-metric"><span>Total purchases</span><strong>₹18,450</strong></div>
+    <div class="profile-metric"><span>Orders</span><strong>8</strong></div>
+    <div class="profile-metric"><span>Preferred payment</span><strong>UPI</strong></div>
+  </div>
+  <div class="segment-box"><div><span class="segment-icon">🎯</span><div><strong>Customer Segment: Returning + High Value</strong><p>Customer is more likely to complete purchase without a discount.</p></div></div><span class="segment-score">92% Purchase Intent</span></div>
+</section>
+
+<section class="section">
+  <div class="notification"><div class="notification-icon">🔔</div><div><strong>Smart Notification</strong><p id="notificationText">Your payment didn't go through. Try UPI again to complete your order.</p></div><button onclick="sendNotification()">Send Notification</button></div>
+</section>
+
+<section class="section" id="analytics">
+  <div class="section-title"><div><span class="section-label">ADMIN DASHBOARD</span><h2>Recovery Analytics</h2></div><button class="outline-btn" onclick="refreshAnalytics()">↻ Refresh</button></div>
+  <div class="analytics-grid">
+    <div class="analytics-card"><span>Recovery Rate</span><strong id="recoveryRate">60.5%</strong><div class="mini-progress"><div style="width:60.5%"></div></div></div>
+    <div class="analytics-card"><span>Average Cart Value</span><strong>₹2,840</strong><small>↑ 8.4%</small></div>
+    <div class="analytics-card"><span>Discounts Saved</span><strong>₹48,720</strong><small>vs blanket coupons</small></div>
+    <div class="analytics-card"><span>AI Interventions</span><strong>846</strong><small>this month</small></div>
+  </div>
+  <div class="reason-chart"><h3>Cart Abandonment Reasons</h3>
+    <div class="bar-item"><div><span>Payment Issues</span><strong>18%</strong></div><div class="bar"><span style="width:18%"></span></div></div>
+    <div class="bar-item"><div><span>High Shipping</span><strong>12%</strong></div><div class="bar"><span style="width:12%"></span></div></div>
+    <div class="bar-item"><div><span>Delivery Date</span><strong>9%</strong></div><div class="bar"><span style="width:9%"></span></div></div>
+    <div class="bar-item"><div><span>Price Comparison</span><strong>8%</strong></div><div class="bar"><span style="width:8%"></span></div></div>
+    <div class="bar-item"><div><span>Form Friction</span><strong>4%</strong></div><div class="bar"><span style="width:4%"></span></div></div>
+  </div>
+</section>
+
+<section class="section" id="history">
+  <div class="section-title"><div><span class="section-label">RESCUE HISTORY</span><h2>Recent interventions</h2></div></div>
+  <div class="table-card"><table><thead><tr><th>Customer</th><th>Problem</th><th>AI Action</th><th>Result</th></tr></thead><tbody id="historyTable">
+    <tr><td>CR-1024</td><td>Payment failed</td><td>Retry UPI</td><td><span class="status recovered">Recovered</span></td></tr>
+    <tr><td>CR-1021</td><td>High shipping</td><td>₹50 shipping offer</td><td><span class="status recovered">Recovered</span></td></tr>
+    <tr><td>CR-1019</td><td>Late delivery</td><td>Express delivery</td><td><span class="status recovered">Recovered</span></td></tr>
+    <tr><td>CR-1017</td><td>Price checking</td><td>5% personalized offer</td><td><span class="status pending">Pending</span></td></tr>
+  </tbody></table></div>
+</section>
+</main>
+
+<footer><div class="footer-logo">🛒 <strong>Cart Rescue</strong></div><p>AI-powered cart recovery that fixes the problem instead of blindly giving discounts.</p><span>Built for AI Build Hackathon 🚀</span></footer>
+
+<div id="toast" class="toast"><span>✓</span><div><strong>Success</strong><p>Action completed successfully.</p></div></div>
+<script src="script.js"></script>
+</body>
+</html>
