@@ -1,7 +1,7 @@
 {
   "name": "cart-rescue",
   "version": "2.0.0",
-  "description": "Cart Rescue with Node.js Express and MySQL",
+  "description": "Cart Rescue - Intelligent AI-powered e-commerce cart recovery web application with Node.js, Express, and MySQL.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
